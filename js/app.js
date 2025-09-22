@@ -12,6 +12,8 @@ const filterButtons=document.querySelectorAll(".filter-todos")
 
 let todos=JSON.parse(localStorage.getItem("todos"))||[]
 
+
+
 const saveToLocalStorage=()=>{
 localStorage.setItem("todos",JSON.stringify(todos))
 
@@ -41,7 +43,7 @@ const todoList=data||todos
 
     todosBody.innerHTML=""
   if(!todoList.length){
-    todosBody.innerHTML="<tr><td colspan='4'>No task found!</td></tr>"
+    todosBody.innerHTML="<tr><td colspan='4'>هیچ عنوانی یافت نشد!</td></tr>"
     return;
   }
   todoList.forEach(todo => {
@@ -49,12 +51,12 @@ const todoList=data||todos
     todosBody.innerHTML+=
     `<tr>
     <td>${todo.task}</td>
-    <td>${todo.date||"No Date"}</td>
-    <td>${todo.completed?"Completed":"Pending"}</td>
+    <td>${todo.date||"بدون تاریخ"}</td>
+    <td>${todo.completed?"تکمیل شده":"در حال انجام "}</td>
     <td>
-    <button onClick="editHandler('${todo.id}')">Edit</button>
-    <button onClick="toggleHandler('${todo.id}')">${todo.completed?"Undo":"Do"}</button>
-    <button onClick="deleteHandler('${todo.id}')">Delete</button>
+    <button onClick="editHandler('${todo.id}')">ویرایش</button>
+    <button onClick="toggleHandler('${todo.id}')">${todo.completed?"قبل":"بعد"}</button>
+    <button onClick="deleteHandler('${todo.id}')">حذف</button>
 
     </td>
     
@@ -83,11 +85,11 @@ const addHandler=()=>{
       taskInput.value=""
       dateInput.value=""
       console.log(todos)
-      showAlert("Todo added successfully","success")
+      showAlert("تودو با موفقیت اضافه شد","success")
 
     }
     else{
-        showAlert("Please enter a todo!","error")
+        showAlert("لطفا تودو را کامل وارد کنید!","error")
     }
 }
 
@@ -97,9 +99,9 @@ const deleteAllHandler=()=>{
         todos=[]
         saveToLocalStorage()
         displayTodos()
-        showAlert("All todos cleared successfully","success")
+        showAlert("همه تودو ها حذف گردید","success")
     }else{
-        showAlert("no todos to clear","error")
+        showAlert("هیچ تودویی برای حذف کردن وجود ندارد","error")
         
     }
     
@@ -111,7 +113,7 @@ const newTodos=todos.filter((todo)=>todo.id!==id)
   todos=newTodos
   saveToLocalStorage()
   displayTodos()
-  showAlert("todo deleted successfully","success")
+  showAlert("حذف شد","success")
 }
 
 
@@ -141,7 +143,7 @@ const todo=todos.find((todo)=>todo.id===id)
 todo.completed=!todo.completed
 saveToLocalStorage()
 displayTodos()
-showAlert("Todo status successfully","success")
+showAlert("وضعیت تودو تغییر کرد","success")
 }
 
 
@@ -165,7 +167,7 @@ addButton.style.display="inline-block"
 editButton.style.display="none"
 saveToLocalStorage()
 displayTodos()
-showAlert("Todo edited successfully","success")
+showAlert("تودو با موفقیت ویرایش شد","success")
     
 }
 const filterHandler=event=>{
